@@ -1,0 +1,6 @@
+[tools]
+python = "3.13"
+uv = "latest"
+pre-commit = "latest"
+node = "lts"
+ruff = "latest"
