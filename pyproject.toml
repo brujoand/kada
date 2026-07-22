@@ -1,0 +1,22 @@
+[project]
+name = "kada"
+version = "0.0.0" # the released version is the git tag; semantic-release owns it
+description = "A self-hosted quiz app: feed it JSON, kids log in and get a score"
+readme = "README.md"
+requires-python = ">=3.13"
+license = { file = "LICENSE" }
+
+[tool.ruff]
+target-version = "py313"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B", "C4", "SIM", "S"]
+
+[tool.ruff.lint.per-file-ignores]
+# S101: pytest is built on assert. S105/S106: test fixtures name fake tokens and
+# subs that are not secrets.
+"tests/*" = ["S101", "S105", "S106"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

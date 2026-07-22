@@ -1,0 +1,36 @@
+default_install_hook_types: [pre-commit, commit-msg]
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-toml
+      - id: check-merge-conflict
+      - id: check-added-large-files
+
+  # gitleaks runs in every repo here; it is the backstop against a secret ever
+  # reaching a public commit. Stock rules -- no allowlist until a known-public
+  # string trips it.
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.28.0
+    hooks:
+      - id: gitleaks
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.15.10
+    hooks:
+      - id: ruff
+        args: [--fix]
+      - id: ruff-format
+
+  # The commit-msg hook that makes Conventional Commits enforceable locally. It is
+  # the type in the squash/PR title that semantic-release actually reads, but a
+  # green local commit is the first line of defence.
+  - repo: https://github.com/commitizen-tools/commitizen
+    rev: v4.1.0
+    hooks:
+      - id: commitizen
+        stages: [commit-msg]
