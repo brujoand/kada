@@ -42,7 +42,8 @@ pip install -r requirements.txt pytest httpx
 
 python -m pytest -q            # tests
 ruff check . && ruff format --check .
-pre-commit run --all-files     # ruff, gitleaks, formatting, commit-msg
+pre-commit run --all-files     # ruff, gitleaks, formatting -- NOT commit-msg
+git config core.hooksPath .githooks   # once per clone: makes both gates live
 DATA_DIR=./data uvicorn kada.main:app --reload --port 8080
 docker build --build-arg VERSION=0.0.0-dev -t kada .
 ```
